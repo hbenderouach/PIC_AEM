@@ -1,0 +1,19 @@
+pipeline {
+    agent any
+    tools {
+        maven 'maven-3-5-3'
+    }
+    stages {
+        stage('Checkout Git') {
+            steps {
+              git branch: '${branch}', credentialsId: 'GIT_AEM', url: '${url}'
+            }
+        }
+        stage('Build') {
+            steps {
+                sh 'mvn clean install'
+            }
+        }
+        
+    }
+}
